@@ -1,4 +1,5 @@
 ﻿using System;
+using automationpractice.Framework.PageObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -16,7 +17,7 @@ namespace automationpractice
             driver = new ChromeDriver(); //inicializa el driver
         }
 
-        [TestMethod]
+        /*[TestMethod]
         public void ContactUsTest() //Donde hacemos el paso a paso que está indicado en el TestCase
         {
             driver.Url = "http://automationpractice.com/index.php?";
@@ -34,16 +35,31 @@ namespace automationpractice
             submit.Click();
             string success = driver.FindElement(By.XPath("//*[@id=\"center_column\"]/p")).Text;
             Assert.AreEqual("Your message has been successfully sent to our team.", success);
-        }
+        }*/
 
         [TestMethod]
+        public void ContactUsTest() //Donde hacemos el paso a paso que está indicado en el TestCase
+        {
+            HomePage homePage = new HomePage(driver);
+            ContactUsPage contactUsPage = new ContactUsPage(driver);
+
+            //homePage.GoToPage();
+            homePage.ClickOnContackLink();
+            contactUsPage.SetSubjectHeading("2");
+            contactUsPage.FillContactUsForm("email@gol.com", " 102030", "message 123");
+            contactUsPage.ClickOnSubmitButton();
+            Assert.AreEqual("Your message has been successfully sent to our team.",contactUsPage.GetSuccessMessage());
+        }
+
+
+        /*[TestMethod]
         public void NewAccount() //Donde hacemos el paso a paso que está indicado en el TestCase
         {
             driver.Url = "http://automationpractice.com/index.php?";
             IWebElement signIn = driver.FindElement(By.ClassName("header_user_info"));
             signIn.Click();
             IWebElement emailAddress = driver.FindElement(By.Id("email_create"));
-            emailAddress.SendKeys("ggggg8882@gmail.com");
+            emailAddress.SendKeys("ggggg8883@gmail.com");
             IWebElement btnCreateAccount = driver.FindElement(By.Id("SubmitCreate"));
             btnCreateAccount.Click();
             WebDriverWait wait = new WebDriverWait(driver, new TimeSpan(0, 0, 5));
@@ -61,10 +77,6 @@ namespace automationpractice
             monthBirth.SelectByValue("6");
             SelectElement yearBirth = new SelectElement(driver.FindElement(By.Id("years")));
             yearBirth.SelectByValue("1984");
-            /*IWebElement firstName = driver.FindElement(By.Id("firstname"));
-            firstName.SendKeys("Patricia");
-            IWebElement lastName = driver.FindElement(By.Id("lastname"));
-            lastName.SendKeys("Londoño");*/
             IWebElement address = driver.FindElement(By.Id("address1"));
             address.SendKeys("163 Rockland Street Port Orange, FL 32127");
             IWebElement city = driver.FindElement(By.Id("city"));
@@ -75,16 +87,34 @@ namespace automationpractice
             postalCode.SendKeys("77777");
             IWebElement mobilePhone = driver.FindElement(By.Id("phone_mobile"));
             mobilePhone.SendKeys("202-555-0153");
-            /*IWebElement addressAlias = driver.FindElement(By.Id("alias"));
-            addressAlias.SendKeys("");*/
             IWebElement register = driver.FindElement(By.Id("submitAccount"));
             register.Click();
             string success = driver.FindElement(By.ClassName("info-account")).Text;
             Assert.AreEqual("Welcome to your account. Here you can manage all of your personal information and orders.", success);
-        }
+        }*/
+
 
 
         [TestMethod]
+        public void NewAccount1() //Donde hacemos el paso a paso que está indicado en el TestCase
+        {
+            HomePage homePage = new HomePage(driver);
+            LogInPage logInPage = new LogInPage(driver);
+            NewAccountPage newAccountPage = new NewAccountPage(driver);
+            SessionStartedPage sessionStartedPage = new SessionStartedPage(driver);
+
+            homePage.ClickOnSignIn();
+            logInPage.InsertEmail("ecccc8888@gmail.com");
+            logInPage.ClickOnSubmitCreate();
+
+            newAccountPage.CallElement();
+            newAccountPage.FillNewAccountForm("Patricia", "Londoño", "clave1", "19", "6", "1984", "163 Rockland Street Port Orange, FL 32127", "Philadelphia", "38", "77777", "202-555-0153");
+            newAccountPage.ClickOnSubmitAccount();
+            Assert.AreEqual("Welcome to your account. Here you can manage all of your personal information and orders.", sessionStartedPage.GetSuccessMessage());
+        }
+
+
+        /*[TestMethod]
         public void LogIn()
         {
             driver.Url = "http://automationpractice.com/index.php?";
@@ -98,7 +128,24 @@ namespace automationpractice
             btnSignIn.Click();
             string success = driver.FindElement(By.ClassName("info-account")).Text;
             Assert.AreEqual("Welcome to your account. Here you can manage all of your personal information and orders.", success);
+        }*/
+
+
+        [TestMethod]
+        public void LogIn1()
+        {
+            HomePage homePage = new HomePage(driver);
+            LogInPage logInPage = new LogInPage(driver);
+            SessionStartedPage sessionStartedPage = new SessionStartedPage(driver);
+
+            homePage.ClickOnSignIn();
+            logInPage.FillLogInForm("ggggg8881@gmail.com", "clave1");
+            logInPage.ClickOnSubmitLogin();
+
+            Assert.AreEqual("Welcome to your account. Here you can manage all of your personal information and orders.", sessionStartedPage.GetSuccessMessage());
         }
+
+
 
         [TestCleanup]
         public void TestCleanup() //Cerramos el driver
