@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using automationpractice.Framework.BrowserCommands;
@@ -19,8 +16,8 @@ namespace automationpractice.Framework.PageObjects
         public HomePage(IWebDriver driver)
         {
             this.driver = driver;
-            GoToPage();
-            PageFactory.InitElements(driver, this);
+            //GoToPage();
+            //PageFactory.InitElements(driver, this);
         }
 
 
@@ -35,6 +32,7 @@ namespace automationpractice.Framework.PageObjects
         public void GoToPage()
         {
             driver.Navigate().GoToUrl("http://automationpractice.com/index.php");
+            PageFactory.InitElements(driver, this);
         }
 
 
