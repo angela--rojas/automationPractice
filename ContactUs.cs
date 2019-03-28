@@ -1,9 +1,7 @@
-﻿using System;
-using automationpractice.Framework.PageObjects;
+﻿using automationpractice.Framework.PageObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 
 namespace automationpractice
 {
@@ -43,7 +41,7 @@ namespace automationpractice
             HomePage homePage = new HomePage(driver);
             ContactUsPage contactUsPage = new ContactUsPage(driver);
 
-            //homePage.GoToPage();
+            homePage.GoToPage();
             homePage.ClickOnContackLink();
             contactUsPage.SetSubjectHeading("2");
             contactUsPage.FillContactUsForm("email@gol.com", " 102030", "message 123");
@@ -103,8 +101,9 @@ namespace automationpractice
             NewAccountPage newAccountPage = new NewAccountPage(driver);
             SessionStartedPage sessionStartedPage = new SessionStartedPage(driver);
 
+            homePage.GoToPage();
             homePage.ClickOnSignIn();
-            logInPage.InsertEmail("ecccc8888@gmail.com");
+            logInPage.InsertEmail("zzzzz8888@gmail.com");
             logInPage.ClickOnSubmitCreate();
 
             newAccountPage.CallElement();
@@ -138,6 +137,7 @@ namespace automationpractice
             LogInPage logInPage = new LogInPage(driver);
             SessionStartedPage sessionStartedPage = new SessionStartedPage(driver);
 
+            homePage.GoToPage();
             homePage.ClickOnSignIn();
             logInPage.FillLogInForm("ggggg8881@gmail.com", "clave1");
             logInPage.ClickOnSubmitLogin();
